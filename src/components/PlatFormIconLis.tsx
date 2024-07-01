@@ -34,8 +34,8 @@ function PlatFormIconLis({ platform }: PlatFormIconListProps) {
   return (
     <>
       <HStack marginY={1}>
-        {platform.map((platform) => (
-          <Icon as={iconMap[platform.slug]} color={"gray.400"}></Icon>
+        {platform.map((platform, key) => (
+          <Icon key={key} as={iconMap[platform.slug]} color={"gray.400"}></Icon>
         ))}
       </HStack>
     </>
