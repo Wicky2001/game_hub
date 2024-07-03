@@ -9,7 +9,7 @@ function ColorModeSwitch() {
         onChange={toggleColorMode}
         colorScheme="green"
       ></Switch>
-      <Text>{colorMode}</Text>
+      <Text whiteSpace={"nowrap"}>{colorMode}</Text>
     </HStack>
   );
 }

@@ -1,6 +1,7 @@
 import {
   Button,
   HStack,
+  Heading,
   Image,
   List,
   ListItem,
@@ -19,6 +20,9 @@ function GenreList({ onSelcetGenre, selectedGenre }: GenreListProps) {
 
   return (
     <>
+      <Heading fontSize={"2xl"} marginBottom={3}>
+        Genres
+      </Heading>
       <List>
         {isLoading && <Spinner></Spinner>}
         {genres.map((genre) => (
@@ -27,9 +31,12 @@ function GenreList({ onSelcetGenre, selectedGenre }: GenreListProps) {
               <Image
                 src={getCroppedUrl(genre.image_background)}
                 boxSize={"32px"}
+                objectFit={"cover"}
                 borderRadius={5}
               ></Image>
               <Button
+                whiteSpace={"wrap"}
+                textAlign={"left"}
                 variant={"link"}
                 onClick={() => {
                   onSelcetGenre(genre);

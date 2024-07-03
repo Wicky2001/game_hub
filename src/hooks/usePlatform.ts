@@ -6,7 +6,6 @@ export interface Platform {
   id: number;
   name: string;
   slug: string;
-  image_background: string;
 }
 
 interface PlatformResponse {
@@ -36,6 +35,7 @@ const usePlatform = () => {
           setErrorMsg(null);
         } else {
           setErrorMsg(error.message);
+          console.log("palform fetcing error = " + error);
         }
       });
 

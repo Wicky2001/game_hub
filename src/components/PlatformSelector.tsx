@@ -1,32 +1,39 @@
-import {
-  Menu,
-  MenuButton,
-  MenuList,
-  MenuItem,
-  Button,
-  Box,
-} from "@chakra-ui/react";
+import { Menu, MenuButton, MenuList, MenuItem, Button } from "@chakra-ui/react";
 import { FaChevronDown } from "react-icons/fa";
 import usePlatform from "../hooks/usePlatform";
+import { Platform } from "../hooks/useGame";
 
-function PlatformSelector() {
+interface PlatformSelectorProps {
+  onSelectPlatform: (platform: Platform | null) => void;
+  selectedPlatform: Platform | null;
+}
+
+function PlatformSelector({
+  onSelectPlatform,
+  selectedPlatform,
+}: PlatformSelectorProps) {
   const { platforms, errorMsg } = usePlatform();
   if (errorMsg) {
     return null;
   }
   return (
-    <Box marginBottom={2}>
-      <Menu>
-        <MenuButton as={Button} rightIcon={<FaChevronDown />}>
-          Platform
-        </MenuButton>
-        <MenuList>
-          {platforms.map((platform) => (
-            <MenuItem>{platform.name}</MenuItem>
-          ))}
-        </MenuList>
-      </Menu>
-    </Box>
+    <Menu>
+      <MenuButton as={Button} rightIcon={<FaChevronDown />}>
+        {selectedPlatform ? selectedPlatform.name : "Platform"}
+      </MenuButton>
+      <MenuList>
+        {platforms.map((platform) => (
+          <MenuItem
+            key={platform.id}
+            onClick={() => {
+              onSelectPlatform(platform);
+            }}
+          >
+            {platform.name}
+          </MenuItem>
+        ))}
+      </MenuList>
+    </Menu>
   );
 }
 

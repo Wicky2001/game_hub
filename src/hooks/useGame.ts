@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import apiClient from "../services/api_client";
 import { CanceledError } from "axios";
 import { Genre } from "./useGenre";
+import { orderItem } from "../components/SortSelector";
 
 export interface Platform {
   id: number;
@@ -22,18 +23,29 @@ interface GameResponse {
   results: Game[];
 }
 
-const useGame = (genre: Genre | null) => {
+const useGame = (
+  genre: Genre | null,
+  platform: Platform | null,
+  selectedOrderItem: orderItem | null,
+  searchText: string
+) => {
   const [games, setGames] = useState<Game[]>([]);
   const [errorMsg, setErrorMsg] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
+    console.log("selected plaform = " + platform?.name);
     const controller = new AbortController();
     setIsLoading(true);
     apiClient
       .get<GameResponse>("/games", {
         signal: controller.signal,
-        params: { genres: genre?.id },
+        params: {
+          genres: genre?.id,
+          platforms: platform?.id,
+          ordering: selectedOrderItem?.value,
+          search: searchText,
+        },
       })
       .then((res) => {
         setGames(res.data.results);
@@ -49,7 +61,7 @@ const useGame = (genre: Genre | null) => {
       });
 
     return () => controller.abort();
-  }, [genre]);
+  }, [genre, platform, selectedOrderItem, searchText]);
   return { games, errorMsg, isLoading };
 };
 
