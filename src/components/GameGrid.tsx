@@ -26,11 +26,15 @@ const GameGrid = ({
     searchText
   );
   const skeltons = [1, 2, 3, 4, 5, 6];
+  if (errorMsg) {
+    return <Text>{errorMsg + "Can't fetch games"}</Text>;
+  }
   return (
     <>
-      {errorMsg && <Text>{errorMsg}</Text>}
-
-      <SimpleGrid columns={{ sm: 1, md: 2, lg: 3, xl: 3 }} spacing={10}>
+      <SimpleGrid
+        columns={{ sm: 1, md: 2, lg: 3, xl: 3, "2xl": 4 }}
+        spacing={10}
+      >
         {isLoading &&
           skeltons.map((key) => (
             <GameCardContainer key={key}>
