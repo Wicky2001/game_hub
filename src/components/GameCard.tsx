@@ -3,6 +3,7 @@ import { Game } from "../hooks/useGame";
 import PlatFormIconLis from "./PlatFormIconLis";
 import CriticScore from "./CriticScore";
 import getCroppedUrl from "../services/image_url";
+import Emoji from "./Emoji";
 
 interface GameCardProps {
   game: Game;
@@ -22,6 +23,7 @@ function GameCard({ game }: GameCardProps) {
         <Heading fontSize={"xl"} marginTop={2}>
           {game.name}
         </Heading>
+        <Emoji rating={game.rating_top}></Emoji>
       </CardBody>
     </Card>
   );
